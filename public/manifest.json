@@ -1,0 +1,12 @@
+{
+  "name": "RS Weddings Proposal Studio",
+  "short_name": "RS Proposals",
+  "description": "Luxury wedding proposal PDF builder for RS Weddings.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F4F2EC",
+  "theme_color": "#0D2A24",
+  "icons": [
+    { "src": "/brand/rs-logo.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
