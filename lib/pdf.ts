@@ -135,7 +135,7 @@ export async function generatePdf(html: string, id: string) {
   try {
     const page = await browser.newPage();
     await page.setViewport({ width: 2480, height: 3508, deviceScaleFactor: 2 });
-    await page.setContent(html, { waitUntil: "networkidle0" });
+    await page.setContent(html, { waitUntil: "domcontentloaded" });
     await page.emulateMediaType("print");
     await page.pdf({ path: pdfPath, format: "A4", printBackground: true, preferCSSPageSize: true, scale: 1 });
   } finally {
