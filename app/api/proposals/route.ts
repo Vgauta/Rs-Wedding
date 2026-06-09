@@ -6,6 +6,7 @@ import type { ProposalPayload } from "@/lib/types";
 import { createId } from "@/lib/id";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 export const maxDuration = 60;
 
 function absoluteUrl(request: Request, path: string) {

@@ -4,6 +4,7 @@ import { saveUpload } from "@/lib/storage";
 import type { Settings } from "@/lib/types";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 export async function GET() {
   return NextResponse.json(getSettings());

@@ -8,6 +8,7 @@ const mediaCategories: MediaCategory[] = ["Wedding", "Pre Wedding", "Reception",
 const isMediaCategory = (value: string): value is MediaCategory => mediaCategories.includes(value as MediaCategory);
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 export async function GET(request: Request) {
   const url = new URL(request.url);

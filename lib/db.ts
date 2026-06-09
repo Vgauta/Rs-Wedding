@@ -9,6 +9,8 @@ mkdirSync(dataDir, { recursive: true });
 
 const db = new DatabaseSync(path.join(dataDir, "rs-weddings.sqlite"));
 
+db.exec("PRAGMA busy_timeout = 5000; PRAGMA journal_mode = WAL;");
+
 db.exec(`
   CREATE TABLE IF NOT EXISTS settings (
     id INTEGER PRIMARY KEY CHECK (id = 1),
@@ -55,17 +57,11 @@ try {
   }
 }
 
-const existing = db.prepare("SELECT id FROM settings WHERE id = 1").get();
-if (!existing) {
-  db.prepare("INSERT INTO settings (id, data, updated_at) VALUES (1, ?, ?)").run(JSON.stringify(defaultSettings), new Date().toISOString());
-}
+db.prepare("INSERT OR IGNORE INTO settings (id, data, updated_at) VALUES (1, ?, ?)").run(JSON.stringify(defaultSettings), new Date().toISOString());
 
-const packageCount = db.prepare("SELECT COUNT(*) AS count FROM package_templates").get() as { count: number };
-if (packageCount.count === 0) {
-  const insert = db.prepare("INSERT INTO package_templates (id, name, data, usage_count, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)");
-  for (const template of starterPackageTemplates) {
-    insert.run(template.id, template.name, JSON.stringify(template), template.usageCount, template.createdAt, template.updatedAt);
-  }
+const insertStarterPackage = db.prepare("INSERT OR IGNORE INTO package_templates (id, name, data, usage_count, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)");
+for (const template of starterPackageTemplates) {
+  insertStarterPackage.run(template.id, template.name, JSON.stringify(template), template.usageCount, template.createdAt, template.updatedAt);
 }
 
 export function getSettings(): Settings {

@@ -4,6 +4,7 @@ import type { PackageTemplate } from "@/lib/types";
 import { createId } from "@/lib/id";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 export async function GET() {
   return NextResponse.json(listPackageTemplates());
