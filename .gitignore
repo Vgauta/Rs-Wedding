@@ -1,0 +1,13 @@
+node_modules
+.next
+out
+data/*
+!data/.gitkeep
+public/uploads/*
+!public/uploads/.gitkeep
+public/proposals/*
+!public/proposals/.gitkeep
+.env*.local
+npm-debug.log*
+tsconfig.tsbuildinfo
+.DS_Store

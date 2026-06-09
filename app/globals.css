@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #f4f2ec;
+  --foreground: #0d2a24;
+  --primary: #0d2a24;
+  --primary-soft: #133a33;
+  --paper: #fffdf8;
+  --gold: #d6c3a5;
+  --accent: #a58f68;
+}
+
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.dark body, body.dark {
+  background: #071915;
+  color: #f4f2ec;
+}
+
+::selection { background: #d6c3a5; color: #0d2a24; }
+
+.luxury-border { border: 1px solid rgba(165, 143, 104, 0.28); }
+.editorial-shadow { box-shadow: 0 24px 80px rgba(13, 42, 36, 0.08); }
+.safe-bottom { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
+
+input, textarea, select { font-size: 16px; }
