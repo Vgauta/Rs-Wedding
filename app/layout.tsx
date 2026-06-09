@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   title: "RS Weddings Proposal Studio",
   description: "Luxury mobile-first wedding proposal PDF builder for RS Weddings.",
   manifest: "/manifest.json",
+  icons: { icon: "/icon.svg", apple: "/icon.svg" },
   appleWebApp: { capable: true, title: "RS Proposals", statusBarStyle: "black-translucent" },
 };
 

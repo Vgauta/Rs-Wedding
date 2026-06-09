@@ -3,6 +3,7 @@ import { getMediaByIds, getSettings, incrementPackageUsage, saveProposal } from 
 import { generatePdf, renderProposalHtml, saveHtmlPreview } from "@/lib/pdf";
 import { saveUpload } from "@/lib/storage";
 import type { ProposalPayload } from "@/lib/types";
+import { createId } from "@/lib/id";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -28,7 +29,7 @@ export async function POST(request: Request) {
   if (!payload.clientName || !payload.brideName || !payload.groomName || !normalizedNumber) {
     return NextResponse.json({ error: "Client name, bride name, groom name, and WhatsApp number are required." }, { status: 400 });
   }
-  const id = crypto.randomUUID();
+  const id = createId();
   const heroImage = await saveUpload(form.get("heroImage") as File | null, "uploads");
   const galleryImages: string[] = [];
   for (const file of form.getAll("galleryImages")) {

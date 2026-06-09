@@ -5,8 +5,9 @@ import { ArrowDown, ArrowUp, BarChart3, Check, Copy, Moon, Plus, Save, Send, Set
 import { ChangeEvent, DragEvent, FormEvent, MouseEvent, ReactElement, ReactNode, useEffect, useMemo, useState } from "react";
 import type { AddonItem, CoverStyle, DashboardStats, DeliveryItem, GalleryLayout, MediaAsset, MediaCategory, PackageTemplate, PdfTemplate, ProposalPayload, ServiceBlock, Settings as SettingsType } from "@/lib/types";
 import { defaultAddons, defaultDeliveryItems, defaultServices, defaultSettings } from "@/lib/defaults";
+import { createId } from "@/lib/id";
 
-const uid = () => crypto.randomUUID();
+const uid = () => createId();
 const categories: MediaCategory[] = ["Wedding", "Pre Wedding", "Reception", "Haldi", "Mehendi", "Engagement", "Drone", "Cinematic", "Candid"];
 const pdfTemplates: PdfTemplate[] = ["Luxury Editorial", "Magazine Style", "Minimal Elegant", "Premium Dark Theme"];
 const coverStyles: CoverStyle[] = ["Full Screen Hero Image", "Split Layout", "Magazine Cover", "Luxury Minimal"];

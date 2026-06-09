@@ -2,6 +2,10 @@ import { NextResponse } from "next/server";
 import { createMediaAsset, deleteMediaAsset, listMediaAssets, reorderMediaAssets } from "@/lib/db";
 import { deletePublicFile, saveUpload } from "@/lib/storage";
 import type { MediaAsset, MediaCategory } from "@/lib/types";
+import { createId } from "@/lib/id";
+
+const mediaCategories: MediaCategory[] = ["Wedding", "Pre Wedding", "Reception", "Haldi", "Mehendi", "Engagement", "Drone", "Cinematic", "Candid"];
+const isMediaCategory = (value: string): value is MediaCategory => mediaCategories.includes(value as MediaCategory);
 
 export const runtime = "nodejs";
 
@@ -12,20 +16,21 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   const form = await request.formData();
-  const category = String(form.get("category") ?? "Wedding") as MediaCategory;
+  const requestedCategory = String(form.get("category") ?? "Wedding");
+  const category = isMediaCategory(requestedCategory) ? requestedCategory : "Wedding";
   const assets: MediaAsset[] = [];
   for (const file of form.getAll("images")) {
     const saved = await saveUpload(file as File, "uploads");
     if (!saved) continue;
-    const asset: MediaAsset = { id: crypto.randomUUID(), url: saved, name: (file as File).name, category, alt: String(form.get("alt") ?? ""), sortOrder: Date.now(), createdAt: new Date().toISOString() };
+    const asset: MediaAsset = { id: createId(), url: saved, name: (file as File).name, category, alt: String(form.get("alt") ?? ""), sortOrder: Date.now(), createdAt: new Date().toISOString() };
     assets.push(createMediaAsset(asset));
   }
   return NextResponse.json(assets);
 }
 
 export async function PATCH(request: Request) {
-  const body = await request.json() as { ids?: string[] };
-  reorderMediaAssets(body.ids ?? []);
+  const body = await request.json().catch(() => ({ ids: [] })) as { ids?: string[] };
+  reorderMediaAssets(Array.isArray(body.ids) ? body.ids : []);
   return NextResponse.json({ ok: true });
 }
 

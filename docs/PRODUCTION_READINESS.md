@@ -14,6 +14,9 @@ The application is suitable for local hosting or a small studio deployment after
 - PDF renderer settings are sanitized before being interpolated into CSS, reducing malformed brand setting risk.
 - PDF rendering now has safe defaults for older drafts or partial API payloads.
 - Local draft restoration now handles corrupted `localStorage` data without crashing the app.
+- Browser/server ID generation now uses a guarded cross-platform helper instead of directly calling unguarded Web Crypto UUID APIs, fixing older mobile/browser runtime crashes.
+- Added an app favicon/icon and explicit metadata icon registration.
+- Settings, media reorder, and package-template API writes now handle malformed JSON/payloads with structured errors.
 
 ## Known environment limitation during this audit
 
